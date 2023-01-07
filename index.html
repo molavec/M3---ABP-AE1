@@ -12,6 +12,18 @@
       list-style: none;
     }
 
+    .card {
+      display: flex;
+      align-items: center;
+    }
+
+    .card-img-top {
+      display: block;
+      max-width: 300px;
+      max-height: 300px;
+      width: auto;
+      height: auto;
+    }
     
     .arriba {
       transform: scale(1.2);
@@ -47,7 +59,6 @@
       <area shape="rectangle" coords="950,175,1155,255" href="" />
       <area shape="rectangle" coords="1180,125,1450,255" href="" />
     </map>
-    </map>
     <img src="https://aprotur.cl/wp-content/uploads/2020/07/sur.png" usemap="#mapa" >
   </div>
 
@@ -55,13 +66,14 @@
 
   <div class="container text-center">
 
-    <div class="card">
+    <div id="info" class="card">
       <img src="..." class="card-img-top shadow" alt="...">
       <div class="card-body">
         <h5 class="card-title">Región:</h5>
         <p class="card-text" id="atractivos">Atractivos: </p>
       </div>
     </div>
+
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
@@ -70,10 +82,37 @@
 
 
 
+<script src="/index.js"></script>
 
 <script>
+
+
+  //hide card
+  $("#info").hide();
+
+
   $("area").hover(function () {
+    // change class area
     $(this).toggleClass('arriba').siblings().toggleClass('abajo')
+    
+    // show data about region
+    console.log('index', $(this).index());
+    console.log('regiones', regiones);
+
+    const index = $(this).index();
+    const infoText = `
+      <img src="${regiones[index].img}" class="card-img-top shadow" alt="${regiones[index].name}">
+      <div class="card-body">
+        <h5 class="card-title">Región: ${regiones[index].name}</h5>
+        <p class="card-text" id="atractivos">Atractivos: ${regiones[index].atractivos} </p>
+      </div>
+    `;
+
+    $("#info").html(infoText);
+    $("#info").show();
+
+
   })</script>
+
 
 </html>
